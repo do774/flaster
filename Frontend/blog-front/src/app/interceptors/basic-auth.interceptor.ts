@@ -7,9 +7,10 @@ export const basicAuthInterceptor: HttpInterceptorFn = (
 ): Observable<any> => {
   const token = localStorage.getItem('basicAuth');
   if (token) {
-    req = req.clone({
+    const cloned = req.clone({
       setHeaders: { Authorization: 'Basic ' + token }
     });
+    return next(cloned);
   }
   return next(req);
 };

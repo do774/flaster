@@ -15,16 +15,19 @@ import { RouterLink } from '@angular/router';
 export class LoginComponent {
   username = '';
   password = '';
-  errorMessage = ''; 
+  errorMessage = '';
   private apiUrl = 'http://localhost:8080/api/users';
+
   constructor(private router: Router, private http: HttpClient) {}
+
   login() {
+    const basicAuth = btoa(`${this.username}:${this.password}`);
     const headers = new HttpHeaders({
-      Authorization: 'Basic ' + btoa(`${this.username}:${this.password}`)
+      Authorization: 'Basic ' + basicAuth
     });
     this.http.get<any>(this.apiUrl, { headers }).subscribe({
       next: response => {
-        localStorage.setItem('token', 'loggedIn');
+        localStorage.setItem('basicAuth', basicAuth);
         localStorage.setItem('username', this.username);
         this.router.navigate(['/']);
       },

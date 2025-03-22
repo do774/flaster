@@ -15,14 +15,13 @@ import org.springframework.web.cors.CorsConfigurationSource;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
       .cors().and()
       .csrf(csrf -> csrf.disable())
       .authorizeHttpRequests(auth -> auth
-          .requestMatchers(HttpMethod.GET, "/api/posts").permitAll()  // Dozvoli GET /api/posts
+          .requestMatchers(HttpMethod.GET, "/api/posts", "/api/comments/**").permitAll()
           .requestMatchers("/api/users/signup").permitAll()
           .anyRequest().authenticated()
       )
@@ -42,8 +41,3 @@ public class SecurityConfig {
     return source;
   }
 }
-
-
-
-
-

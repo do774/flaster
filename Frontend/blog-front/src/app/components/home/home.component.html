@@ -1,25 +1,86 @@
 <div class="intro">
-    <h1>Welcome to our blog!</h1>
+    <h1>Please Be Respectful</h1>
     <p>
-        Before you dive into the comment section, remember: your words have power – so use them for good, not evil.  
-
-Be kind, be cool, and don’t stomp on other people’s opinions like Godzilla on a tiny village. Let’s keep this space fun, friendly, and free of drama. Capes optional, but respect is mandatory!
+      When posting on the blog, we kindly ask you to be mindful of your words.
+      Respect others' opinions, avoid offensive language, and keep the conversation thoughtful and constructive.
+      Everyone deserves to feel safe and heard here.
+    </p>
+    <h2>Flaster is an all-round platform for measurable moving advertising</h2>
+    <p>
+      Flaster is a platform that offers personalized brand experience and provides a shortcut to international exposure.
+      We are using taxi and rideshare vehicles as moving advertising surfaces in urban areas.
+      Flaster is enabling brands to mirror campaigns in multiple markets.
+      Unique technology enables detailed analysis of campaign performance.
+      A thermal representation of the exposure of the campaign allows you to see which streets and parts of the city had the most contacts.
     </p>
   </div>
+  
   <div class="posts-container">
-    <div class="post-item" *ngFor="let post of posts">
-      <h3>{{ post.title }}</h3>
-      <p>{{ post.content }}</p>
-      <div class="comments-section" *ngIf="post.comments?.length">
-        <h4>Comments</h4>
-        <div class="comment-item" *ngFor="let comment of post.comments">
-          <p>{{ comment.content }} <span class="comment-author">- {{ comment.user?.username }}</span></p>
+    <div class="post-item" *ngFor="let post of displayedPosts">
+      <div class="post-main">
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.content }}</p>
+        <div class="post-author">
+          Autor: {{ post.author?.username }}
         </div>
       </div>
-      <div class="actions" *ngIf="isLoggedIn">
-        <button (click)="likePost(post.id)">Like</button>
-        <button (click)="commentPost(post.id)">Comment</button>
+  
+      <div class="post-actions">
+        <div class="action-buttons" *ngIf="isLoggedIn">
+          <button class="action-btn" (click)="toggleLike(post)" [title]="post.userLiked ? 'You liked this post' : 'Like this post'">
+            <i class="fa fa-thumbs-up"></i> Like
+          </button>
+          <button class="action-btn" (click)="toggleComment(post)">
+            Comment
+          </button>
+        </div>
+        <div class="like-counter" *ngIf="post.likeCount > 0">
+          {{ post.likeCount }} {{ post.likeCount === 1 ? 'like' : 'likes' }}
+        </div>
       </div>
+  
+      <div class="comment-box" *ngIf="post.showCommentBox">
+        <textarea [(ngModel)]="post.newComment" rows="2" placeholder="Write a comment..."></textarea>
+        <button class="action-btn" (click)="addComment(post)">Post</button>
+      </div>
+  
+      <div class="comments-section" *ngIf="post.comments && post.comments.length">
+        <h4>Comments</h4>
+        <div class="comment-item" *ngFor="let comment of displayedComments(post)">
+          <div class="comment-header">
+            <ng-container *ngIf="comment.user?.image; else defaultAvatar">
+              <img [src]="comment.user.image" alt="avatar" class="comment-avatar" />
+            </ng-container>
+            <ng-template #defaultAvatar>
+              <mat-icon class="comment-avatar">account_circle</mat-icon>
+            </ng-template>
+            <span class="comment-user">{{ comment.user?.username }}</span>
+          </div>
+          <p class="comment-content">{{ comment.content }}</p>
+        </div>
+  
+        <div class="view-toggle" *ngIf="post.comments.length > 3">
+          <button (click)="toggleShowAllComments(post)">
+            <ng-container *ngIf="!post.showAllComments">
+              View More Comments <i class="fa fa-chevron-down"></i>
+            </ng-container>
+            <ng-container *ngIf="post.showAllComments">
+              View Less Comments <i class="fa fa-chevron-up"></i>
+            </ng-container>
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <div class="view-toggle" *ngIf="posts.length > 3">
+      <button (click)="toggleShowAllPosts()">
+        <ng-container *ngIf="!showAllPosts">
+          View More <i class="fa fa-chevron-down"></i>
+        </ng-container>
+        <ng-container *ngIf="showAllPosts">
+          View Less <i class="fa fa-chevron-up"></i>
+        </ng-container>
+      </button>
     </div>
   </div>
   

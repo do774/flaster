@@ -6,8 +6,9 @@ import { CanActivate, Router } from '@angular/router';
 })
 export class AuthGuard implements CanActivate {
   constructor(private router: Router) {}
+
   canActivate(): boolean {
-    const loggedIn = !!localStorage.getItem('token');
+    const loggedIn = !!localStorage.getItem('basicAuth');
     if (!loggedIn) {
       this.router.navigate(['/login']);
     }

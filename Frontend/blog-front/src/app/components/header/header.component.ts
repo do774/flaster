@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -11,16 +11,14 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  constructor(private router: Router) {}
+  constructor(private authService: AuthService) {}
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+    return this.authService.isLoggedIn();
   }
   getUsername(): string {
     return localStorage.getItem('username') || '';
   }
-  logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
-    this.router.navigate(['/login']);
+  logout(): void {
+    this.authService.logout();
   }
 }

@@ -7,6 +7,8 @@ import com.flaster.blog.repository.LikeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class LikeService {
 
@@ -27,5 +29,18 @@ public class LikeService {
         return likeRepository.findAll().stream()
                 .filter(l -> l.getPost().getId().equals(post.getId()))
                 .count();
+    }
+
+    public boolean removeLike(Post post, User user) {
+        Optional<Like> optLike = likeRepository.findByPostIdAndUserId(post.getId(), user.getId());
+        if(optLike.isPresent()){
+            likeRepository.delete(optLike.get());
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isLikedByUser(Post post, User user) {
+        return likeRepository.existsByPostIdAndUserId(post.getId(), user.getId());
     }
 }
