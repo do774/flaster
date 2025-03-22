@@ -1,0 +1,25 @@
+<div class="intro">
+    <h1>Welcome to our blog!</h1>
+    <p>
+        Before you dive into the comment section, remember: your words have power – so use them for good, not evil.  
+
+Be kind, be cool, and don’t stomp on other people’s opinions like Godzilla on a tiny village. Let’s keep this space fun, friendly, and free of drama. Capes optional, but respect is mandatory!
+    </p>
+  </div>
+  <div class="posts-container">
+    <div class="post-item" *ngFor="let post of posts">
+      <h3>{{ post.title }}</h3>
+      <p>{{ post.content }}</p>
+      <div class="comments-section" *ngIf="post.comments?.length">
+        <h4>Comments</h4>
+        <div class="comment-item" *ngFor="let comment of post.comments">
+          <p>{{ comment.content }} <span class="comment-author">- {{ comment.user?.username }}</span></p>
+        </div>
+      </div>
+      <div class="actions" *ngIf="isLoggedIn">
+        <button (click)="likePost(post.id)">Like</button>
+        <button (click)="commentPost(post.id)">Comment</button>
+      </div>
+    </div>
+  </div>
+  

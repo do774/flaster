@@ -1,0 +1,9 @@
+.app-container {
+    padding: 20px;
+  }
+  :host {
+    display: block;
+    padding-bottom: 50px; 
+  }
+  
+  

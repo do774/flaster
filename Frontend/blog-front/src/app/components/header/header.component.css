@@ -1,0 +1,25 @@
+.navbar {
+    background-color: #333;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 0 20px;
+  }
+  .navbar-left a,
+  .navbar-right a,
+  .navbar-right span {
+    color: #fff;
+    margin: 0 15px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 1.1em;
+  }
+  .navbar a:hover {
+    text-decoration: underline;
+  }
+  .welcome-message {
+    font-weight: bold;
+  }

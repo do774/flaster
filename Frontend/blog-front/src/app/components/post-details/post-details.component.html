@@ -1,0 +1,18 @@
+<div class="post-details-container">
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.content }}</p>
+    <p><strong>Author:</strong> {{ post.author?.username }}</p>
+    <hr />
+    <h3>Comments</h3>
+    <div class="comments-section">
+      <div class="comment-item" *ngFor="let comment of post.comments">
+        <p>{{ comment.content }}</p>
+        <small>By {{ comment.user?.username }}</small>
+      </div>
+    </div>
+    <div class="add-comment">
+      <input type="text" placeholder="Add a comment" [(ngModel)]="newComment" name="comment" />
+      <button (click)="addComment()">Comment</button>
+    </div>
+  </div>
+  

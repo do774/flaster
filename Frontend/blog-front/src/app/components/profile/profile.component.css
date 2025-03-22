@@ -1,0 +1,81 @@
+.profile-container {
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 25px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background: #fff;
+    text-align: left;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  .profile-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    color: #333;
+  }
+  
+  .profile-avatar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .profile-avatar img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+  }
+  
+  .profile-view p {
+    margin: 10px 0;
+    font-size: 1.1em;
+  }
+  
+  .profile-edit label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: 500;
+  }
+  .input-field {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    font-size: 1em;
+  }
+  
+  .profile-buttons {
+    margin-top: 15px;
+    text-align: center;
+  }
+  
+  .btn-edit,
+  .btn-save,
+  .btn-cancel {
+    padding: 10px 15px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+  }
+  
+  .btn-edit {
+    background-color: #2196f3;
+    color: #fff;
+  }
+  
+  .btn-save {
+    background-color: #4caf50;
+    color: #fff;
+  }
+  
+  .btn-cancel {
+    background-color: #f44336;
+    color: #fff;
+  }
+  

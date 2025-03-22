@@ -1,5 +1,6 @@
 package com.flaster.blog.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,11 +14,21 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(unique = true, nullable = false) 
     private String username;
+
+    @Column(nullable = false)
     private String password;
-    private String role;
+
+    @Column(nullable = false)
+    private String email;
+
+    private Integer age;
     
-    // TODO budem si dodao lombok u pom 
+    private String country;
+
+    private String role;
 
     public Long getId() {
         return id;
@@ -36,6 +47,24 @@ public class User {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public Integer getAge() {
+        return age;
+    }
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+    public String getCountry() {
+        return country;
+    }
+    public void setCountry(String country) {
+        this.country = country;
     }
     public String getRole() {
         return role;

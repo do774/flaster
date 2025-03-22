@@ -1,0 +1,21 @@
+.posts-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 0 20px;
+}
+.post-item {
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+}
+.post-item h3 {
+  margin-top: 0;
+}
+.post-item a {
+  color: #2196f3;
+  text-decoration: none;
+}
+.post-item a:hover {
+  text-decoration: underline;
+}
