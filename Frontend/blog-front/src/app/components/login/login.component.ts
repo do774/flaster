@@ -17,18 +17,19 @@ export class LoginComponent {
   password = '';
   errorMessage = '';
   private apiUrl = 'http://localhost:8080/api/users';
-
   constructor(private router: Router, private http: HttpClient) {}
-
   login() {
     const basicAuth = btoa(`${this.username}:${this.password}`);
     const headers = new HttpHeaders({
       Authorization: 'Basic ' + basicAuth
     });
-    this.http.get<any>(this.apiUrl, { headers }).subscribe({
+    this.http.get<any>(`${this.apiUrl}/${this.username}`, { headers }).subscribe({
       next: response => {
+        console.log('Login response:', response);
         localStorage.setItem('basicAuth', basicAuth);
         localStorage.setItem('username', this.username);
+        localStorage.setItem('role', response.role);
+        console.log('Role stored:', localStorage.getItem('role'));
         this.router.navigate(['/']);
       },
       error: err => {

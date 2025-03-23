@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -11,14 +10,26 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  constructor(private authService: AuthService) {}
-  isLoggedIn(): boolean {
-    return this.authService.isLoggedIn();
+  constructor(private router: Router) {}
+  get isLoggedIn(): boolean {
+    return !!localStorage.getItem('basicAuth');
   }
-  getUsername(): string {
+  get username(): string {
     return localStorage.getItem('username') || '';
   }
+  get role(): string {
+    return localStorage.getItem('role') || '';
+  }
+  get isAdmin(): boolean {
+    return this.role === 'ADMIN';
+  }
+  get isAuthorOrAdmin(): boolean {
+    return this.role === 'AUTHOR' || this.role === 'ADMIN';
+  }
   logout(): void {
-    this.authService.logout();
+    localStorage.removeItem('basicAuth');
+    localStorage.removeItem('username');
+    localStorage.removeItem('role');
+    this.router.navigate(['/login']);
   }
 }

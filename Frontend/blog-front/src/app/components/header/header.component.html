@@ -1,13 +1,15 @@
 <nav class="navbar">
     <div class="navbar-left">
       <a routerLink="/">Home</a>
-      <a routerLink="/profile" *ngIf="isLoggedIn()">Profile</a>
+      <a routerLink="/profile">Profile</a>
+      <a routerLink="/add-post" *ngIf="isLoggedIn && isAuthorOrAdmin">+ Add Post</a>
+      <a routerLink="/roles" *ngIf="isLoggedIn && isAdmin">Roles</a>
     </div>
     <div class="navbar-right">
-      <span *ngIf="isLoggedIn()" class="welcome-message">Welcome, {{ getUsername() }}!</span>
-      <a routerLink="/login" *ngIf="!isLoggedIn()">Login</a>
-      <a routerLink="/signup" *ngIf="!isLoggedIn()">Sign up</a>
-      <a (click)="logout()" *ngIf="isLoggedIn()">Logout</a>
+      <span *ngIf="isLoggedIn" class="welcome-message">Welcome, {{ username }}!</span>
+      <a routerLink="/login" *ngIf="!isLoggedIn">Login</a>
+      <a routerLink="/signup" *ngIf="!isLoggedIn">Sign up</a>
+      <a (click)="logout()" *ngIf="isLoggedIn">Logout</a>
     </div>
   </nav>
   

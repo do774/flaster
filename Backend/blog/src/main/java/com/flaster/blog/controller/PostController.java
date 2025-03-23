@@ -12,32 +12,27 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/posts")
 public class PostController {
-
     @Autowired
     private PostService postService;
-
     @GetMapping
     public List<Post> getAllPosts() {
         return postService.getAllPosts();
     }
-
     @PostMapping
-    @PreAuthorize("hasRole('AUTHOR')")
+    @PreAuthorize("hasAnyAuthority('AUTHOR','ADMIN')")
     public Post createPost(@RequestBody Post post, Authentication auth) {
         User user = postService.findUserByUsername(auth.getName());
         post.setAuthor(user);
         return postService.createPost(post);
     }
-
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('AUTHOR')")
+    @PreAuthorize("hasAnyAuthority('AUTHOR','ADMIN')")
     public Post updatePost(@PathVariable Long id, @RequestBody Post updatedPost, Authentication auth) {
         User user = postService.findUserByUsername(auth.getName());
         return postService.updatePost(id, updatedPost, user);
     }
-
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('AUTHOR')")
+    @PreAuthorize("hasAnyAuthority('AUTHOR','ADMIN')")
     public void deletePost(@PathVariable Long id, Authentication auth) {
         User user = postService.findUserByUsername(auth.getName());
         postService.deletePost(id, user);

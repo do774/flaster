@@ -27,7 +27,7 @@ export class SignupComponent {
       password: this.password, 
       age: this.age, 
       country: this.country, 
-      role: 'ROLE_READER' 
+      role: 'READER' 
     }).subscribe({
       next: response => {
         this.router.navigate(['/login']);

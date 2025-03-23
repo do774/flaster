@@ -1,0 +1,34 @@
+<div class="roles-container">
+    <h2>Manage User Roles</h2>
+    <div class="roles-card">
+      <table>
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+              <span class="role-badge" [ngClass]="{
+                'role-admin': user.role === 'ADMIN',
+                'role-author': user.role === 'AUTHOR',
+                'role-reader': user.role === 'READER'
+              }">{{ user.role }}</span>
+            </td>
+            <td>
+              <button (click)="updateRole(user.id, 'AUTHOR')">AUTHOR</button>
+              <button (click)="updateRole(user.id, 'ADMIN')">ADMIN</button>
+              <button (click)="updateRole(user.id, 'READER')">READER</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

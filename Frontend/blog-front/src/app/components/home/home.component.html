@@ -15,72 +15,66 @@
     </p>
   </div>
   
+  <div class="add-post-button" *ngIf="isLoggedIn && isAuthorOrAdmin">
+    <button class="add-post-btn" (click)="goToAddPost()">+ Add Post</button>
+  </div>
+  
   <div class="posts-container">
-    <div class="post-item" *ngFor="let post of displayedPosts">
-      <div class="post-main">
+    <div *ngIf="posts.length === 0" class="no-posts">
+      No more posts..
+    </div>
+    <div class="post-item" *ngFor="let post of posts">
+      <div *ngIf="!post.isEditing">
         <h3>{{ post.title }}</h3>
         <p>{{ post.content }}</p>
         <div class="post-author">
-          Autor: {{ post.author?.username }}
+          Author: {{ post.author?.username }}
+        </div>
+        <div class="post-controls" *ngIf="isLoggedIn && (userRole === 'ADMIN' || (userRole === 'AUTHOR' && post.author?.username === userName))">
+          <button class="edit-btn" (click)="enableEdit(post)" title="Edit Post">
+            <i class="fa fa-edit"></i>
+          </button>
+          <button class="delete-btn" (click)="deletePost(post)" title="Delete Post">
+            <i class="fa fa-trash"></i>
+          </button>
         </div>
       </div>
-  
+      <div *ngIf="post.isEditing" class="edit-form">
+        <input type="text" [(ngModel)]="post.editedTitle" required />
+        <textarea [(ngModel)]="post.editedContent" required></textarea>
+        <button (click)="saveEdit(post)" class="save-btn">Save</button>
+        <button (click)="cancelEdit(post)" class="cancel-btn">Cancel</button>
+      </div>
       <div class="post-actions">
         <div class="action-buttons" *ngIf="isLoggedIn">
           <button class="action-btn" (click)="toggleLike(post)" [title]="post.userLiked ? 'You liked this post' : 'Like this post'">
             <i class="fa fa-thumbs-up"></i> Like
           </button>
-          <button class="action-btn" (click)="toggleComment(post)">
-            Comment
-          </button>
+          <button class="action-btn" (click)="toggleComment(post)">Comment</button>
         </div>
         <div class="like-counter" *ngIf="post.likeCount > 0">
           {{ post.likeCount }} {{ post.likeCount === 1 ? 'like' : 'likes' }}
         </div>
       </div>
-  
       <div class="comment-box" *ngIf="post.showCommentBox">
         <textarea [(ngModel)]="post.newComment" rows="2" placeholder="Write a comment..."></textarea>
         <button class="action-btn" (click)="addComment(post)">Post</button>
       </div>
-  
       <div class="comments-section" *ngIf="post.comments && post.comments.length">
         <h4>Comments</h4>
-        <div class="comment-item" *ngFor="let comment of displayedComments(post)">
+        <div class="comment-item" *ngFor="let comment of post.comments">
           <div class="comment-header">
             <ng-container *ngIf="comment.user?.image; else defaultAvatar">
               <img [src]="comment.user.image" alt="avatar" class="comment-avatar" />
             </ng-container>
             <ng-template #defaultAvatar>
-              <mat-icon class="comment-avatar">account_circle</mat-icon>
+              <i class="fa fa-user-circle comment-avatar"></i>
             </ng-template>
             <span class="comment-user">{{ comment.user?.username }}</span>
           </div>
           <p class="comment-content">{{ comment.content }}</p>
         </div>
-  
-        <div class="view-toggle" *ngIf="post.comments.length > 3">
-          <button (click)="toggleShowAllComments(post)">
-            <ng-container *ngIf="!post.showAllComments">
-              View More Comments <i class="fa fa-chevron-down"></i>
-            </ng-container>
-            <ng-container *ngIf="post.showAllComments">
-              View Less Comments <i class="fa fa-chevron-up"></i>
-            </ng-container>
-          </button>
-        </div>
       </div>
-    </div>
-  
-    <div class="view-toggle" *ngIf="posts.length > 3">
-      <button (click)="toggleShowAllPosts()">
-        <ng-container *ngIf="!showAllPosts">
-          View More <i class="fa fa-chevron-down"></i>
-        </ng-container>
-        <ng-container *ngIf="showAllPosts">
-          View Less <i class="fa fa-chevron-up"></i>
-        </ng-container>
-      </button>
     </div>
   </div>
   
