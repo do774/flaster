@@ -1,8 +1,0 @@
-<div class="posts-container">
-  <h2>Blog Posts</h2>
-  <div class="post-item" *ngFor="let post of posts">
-    <h3>{{ post.title }}</h3>
-    <p>{{ post.content | slice:0:100 }}...</p>
-    <a [routerLink]="['/post', post.id]">Read More</a>
-  </div>
-</div>

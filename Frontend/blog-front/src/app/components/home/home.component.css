@@ -17,9 +17,10 @@
     background-color: green;
     color: #fff;
     border: none;
-    padding: 8px 16px;
-    border-radius: 4px;
+    padding: 10px 18px;
+    border-radius: 6px;
     cursor: pointer;
+    transition: background-color 0.3s;
   }
   
   .add-post-btn:hover {
@@ -40,15 +41,20 @@
   }
   
   .post-item {
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
     background: #fff;
     margin-bottom: 20px;
-    border-radius: 8px;
-    padding: 15px;
+    border-radius: 12px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
     position: relative;
+    transition: box-shadow 0.3s;
+  }
+  
+  .post-item:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   }
   
   .post-author {
@@ -60,8 +66,8 @@
   
   .post-controls {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 15px;
+    right: 15px;
     display: flex;
     gap: 10px;
   }
@@ -71,9 +77,10 @@
     background: #2196f3;
     color: #fff;
     border: none;
-    padding: 6px 10px;
-    border-radius: 4px;
+    padding: 8px 12px;
+    border-radius: 6px;
     cursor: pointer;
+    transition: background-color 0.3s;
   }
   
   .edit-btn:hover {
@@ -81,11 +88,11 @@
   }
   
   .delete-btn {
-    background: red;
+    background: #e53935;
   }
   
   .delete-btn:hover {
-    background: #b30000;
+    background: #c62828;
   }
   
   .post-actions {
@@ -103,9 +110,11 @@
     background-color: #2196f3;
     color: #fff;
     border: none;
-    padding: 6px 12px;
+    padding: 4px 8px;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s;
   }
   
   .action-btn:hover {
@@ -115,9 +124,9 @@
   .like-counter {
     background-color: #2196f3;
     color: #fff;
-    font-weight: bold;
-    padding: 5px 10px;
+    padding: 4px 8px;
     border-radius: 4px;
+    font-size: 0.7em;
   }
   
   .comment-box {
@@ -128,9 +137,11 @@
   
   .comment-box textarea {
     resize: vertical;
-    padding: 6px;
+    padding: 8px;
     border-radius: 4px;
     border: 1px solid #ccc;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9em;
   }
   
   .comment-box button {
@@ -141,6 +152,8 @@
     padding: 6px 12px;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s;
   }
   
   .comment-box button:hover {
@@ -153,6 +166,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-left: 20px;
   }
   
   .comment-item {
@@ -171,10 +185,11 @@
   
   .comment-user {
     font-weight: 600;
-    background-color: #2196f3;
+    background-color: #08597a;
     color: #fff;
     padding: 4px 8px;
     border-radius: 4px;
+    font-size: 0.85em;
   }
   
   .toggle-comments-btn {
@@ -184,6 +199,8 @@
     border-radius: 4px;
     cursor: pointer;
     align-self: center;
+    font-size: 0.9em;
+    transition: background 0.3s;
   }
   
   .toggle-comments-btn:hover {
@@ -195,9 +212,9 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding: 15px;
+    padding: 20px;
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 12px;
     background: #f9f9f9;
   }
   
@@ -209,7 +226,7 @@
   .edit-form input,
   .edit-form textarea {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     border: 1px solid #aaa;
     border-radius: 8px;
     font-size: 1em;
@@ -217,7 +234,7 @@
   }
   
   .edit-form textarea {
-    height: 120px;
+    height: 140px;
     resize: vertical;
   }
   
@@ -232,18 +249,20 @@
     background-color: green;
     color: #fff;
     border: none;
-    padding: 10px 20px;
+    padding: 12px 24px;
     border-radius: 8px;
     cursor: pointer;
+    transition: background 0.3s;
   }
   
   .cancel-btn {
     background-color: red;
     color: #fff;
     border: none;
-    padding: 10px 20px;
+    padding: 12px 24px;
     border-radius: 8px;
     cursor: pointer;
+    transition: background 0.3s;
   }
   
   .save-btn:hover {
