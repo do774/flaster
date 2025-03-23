@@ -42,8 +42,10 @@ export class HomeComponent implements OnInit {
           if (!post.likeCount) post.likeCount = 0;
           if (post.userLiked === undefined) post.userLiked = false;
           if (!post.comments) post.comments = [];
+          // Dodajamo property za toggling komentara
           post.showCommentBox = false;
           post.newComment = '';
+          post.showAllComments = false;
           this.loadCommentsForPost(post);
           this.loadLikesForPost(post);
         });

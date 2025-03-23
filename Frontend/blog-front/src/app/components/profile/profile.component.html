@@ -1,22 +1,16 @@
 <div class="profile-container">
     <h2>Your Profile</h2>
-    <div class="profile-card" *ngIf="!isEditing; else editProfile">
-      <div class="avatar-section">
-        <img *ngIf="user.image; else defaultAvatar" [src]="user.image" alt="avatar" class="profile-avatar" />
-        <ng-template #defaultAvatar>
-          <mat-icon class="profile-avatar">account_circle</mat-icon>
-        </ng-template>
-      </div>
+    <div *ngIf="!isEditing; else editProfile" class="profile-card centered-profile">
       <div class="profile-info">
         <p><strong>Username:</strong> {{ user.username }}</p>
         <p><strong>Email:</strong> {{ user.email }}</p>
         <p><strong>Country:</strong> {{ user.country }}</p>
         <p><strong>Age:</strong> {{ user.age }}</p>
       </div>
-      <button (click)="toggleEdit()">Edit Profile</button>
+      <button (click)="toggleEdit()" class="edit-profile-btn">Edit Profile</button>
     </div>
     <ng-template #editProfile>
-      <div class="profile-card">
+      <div class="profile-card edit-mode centered-profile">
         <form (ngSubmit)="updateProfile()">
           <div class="form-group">
             <label>Username:</label>
@@ -34,13 +28,9 @@
             <label>Age:</label>
             <input type="number" [(ngModel)]="user.age" name="age" required />
           </div>
-          <div class="form-group">
-            <label>Profile Image:</label>
-            <input type="file" (change)="onImageSelected($event)" />
-          </div>
           <div class="btn-group">
-            <button type="submit">Save</button>
-            <button type="button" (click)="toggleEdit()">Cancel</button>
+            <button type="submit" class="save-btn">Save</button>
+            <button type="button" (click)="toggleEdit()" class="cancel-btn">Cancel</button>
           </div>
         </form>
       </div>

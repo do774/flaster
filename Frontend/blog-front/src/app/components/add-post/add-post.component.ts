@@ -8,20 +8,26 @@ import { Router } from '@angular/router';
   selector: 'app-add-post',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './add-post.component.html'
+  templateUrl: './add-post.component.html',
+  styleUrls: ['./add-post.component.css']
 })
 export class AddPostComponent {
   title = '';
   content = '';
+  message = '';
   private postsUrl = 'http://localhost:8080/api/posts';
-
   constructor(private http: HttpClient, private router: Router) {}
-
   addPost(): void {
     const post = { title: this.title, content: this.content };
     this.http.post<any>(this.postsUrl, post).subscribe({
       next: () => {
-        this.router.navigate(['/']);
+        this.message = "Post Created";
+        this.title = '';
+        this.content = '';
+        setTimeout(() => {
+          this.message = '';
+          this.router.navigate(['/']);
+        }, 1500);
       },
       error: err => console.error(err)
     });

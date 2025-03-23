@@ -7,7 +7,7 @@
             <th>Username</th>
             <th>Email</th>
             <th>Role</th>
-            <th>Actions</th>
+            <th>Edit Role</th>
           </tr>
         </thead>
         <tbody>
@@ -22,9 +22,12 @@
               }">{{ user.role }}</span>
             </td>
             <td>
-              <button (click)="updateRole(user.id, 'AUTHOR')">AUTHOR</button>
-              <button (click)="updateRole(user.id, 'ADMIN')">ADMIN</button>
-              <button (click)="updateRole(user.id, 'READER')">READER</button>
+              <select #newRole (change)="updateRole(user.id, newRole.value)">
+                <option [value]="user.role" selected>{{ user.role }}</option>
+                <option value="READER" *ngIf="user.role !== 'READER'">READER</option>
+                <option value="AUTHOR" *ngIf="user.role !== 'AUTHOR'">AUTHOR</option>
+                <option value="ADMIN" *ngIf="user.role !== 'ADMIN'">ADMIN</option>
+              </select>
             </td>
           </tr>
         </tbody>

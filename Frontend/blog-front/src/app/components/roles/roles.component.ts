@@ -6,18 +6,16 @@ import { CommonModule } from '@angular/common';
   selector: 'app-roles',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './roles.component.html'
+  templateUrl: './roles.component.html',
+  styleUrls: ['./roles.component.css']
 })
 export class RolesComponent implements OnInit {
   users: any[] = [];
   private adminUrl = 'http://localhost:8080/api/admin/users';
-
   constructor(private http: HttpClient) {}
-
   ngOnInit(): void {
     this.loadUsers();
   }
-
   loadUsers(): void {
     this.http.get<any[]>(this.adminUrl).subscribe({
       next: data => {
@@ -26,10 +24,12 @@ export class RolesComponent implements OnInit {
       error: err => console.error(err)
     });
   }
-
   updateRole(userId: number, role: string): void {
     this.http.put<any>(`${this.adminUrl}/${userId}/role`, { role }).subscribe({
-      next: () => this.loadUsers(),
+      next: () => {
+        alert(`User role updated successfully`);
+        this.loadUsers();
+      },
       error: err => console.error(err)
     });
   }

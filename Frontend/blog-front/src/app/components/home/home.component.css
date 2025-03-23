@@ -4,13 +4,15 @@
     text-align: center;
     padding: 0 20px;
   }
+  
   .add-post-button {
     max-width: 800px;
-    margin: 0 auto 20px auto;
+    margin: 0 auto 20px;
     display: flex;
     justify-content: flex-start;
     padding: 0 20px;
   }
+  
   .add-post-btn {
     background-color: green;
     color: #fff;
@@ -19,20 +21,24 @@
     border-radius: 4px;
     cursor: pointer;
   }
+  
   .add-post-btn:hover {
     background-color: #006600;
   }
+  
   .posts-container {
     max-width: 800px;
     margin: 20px auto;
     padding: 0 20px;
   }
+  
   .no-posts {
     text-align: center;
     font-style: italic;
     color: #666;
     margin-bottom: 20px;
   }
+  
   .post-item {
     border: 1px solid #ccc;
     background: #fff;
@@ -44,15 +50,14 @@
     gap: 10px;
     position: relative;
   }
-  .post-main {
-    margin-bottom: 10px;
-  }
+  
   .post-author {
     font-style: italic;
     font-size: 0.9em;
     color: #666;
     margin-top: 10px;
   }
+  
   .post-controls {
     position: absolute;
     top: 10px;
@@ -60,7 +65,9 @@
     display: flex;
     gap: 10px;
   }
-  .edit-btn {
+  
+  .edit-btn,
+  .delete-btn {
     background: #2196f3;
     color: #fff;
     border: none;
@@ -68,29 +75,30 @@
     border-radius: 4px;
     cursor: pointer;
   }
+  
   .edit-btn:hover {
     background: #1976d2;
   }
+  
   .delete-btn {
     background: red;
-    color: #fff;
-    border: none;
-    padding: 6px 10px;
-    border-radius: 4px;
-    cursor: pointer;
   }
+  
   .delete-btn:hover {
     background: #b30000;
   }
+  
   .post-actions {
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
+  
   .action-buttons {
     display: flex;
     gap: 10px;
   }
+  
   .action-btn {
     background-color: #2196f3;
     color: #fff;
@@ -99,9 +107,11 @@
     border-radius: 4px;
     cursor: pointer;
   }
+  
   .action-btn:hover {
     background-color: #1976d2;
   }
+  
   .like-counter {
     background-color: #2196f3;
     color: #fff;
@@ -109,17 +119,20 @@
     padding: 5px 10px;
     border-radius: 4px;
   }
+  
   .comment-box {
     display: flex;
     flex-direction: column;
     gap: 5px;
   }
+  
   .comment-box textarea {
     resize: vertical;
     padding: 6px;
     border-radius: 4px;
     border: 1px solid #ccc;
   }
+  
   .comment-box button {
     align-self: flex-end;
     background-color: #2196f3;
@@ -129,9 +142,11 @@
     border-radius: 4px;
     cursor: pointer;
   }
+  
   .comment-box button:hover {
     background-color: #1976d2;
   }
+  
   .comments-section {
     border-top: 1px solid #eee;
     padding-top: 10px;
@@ -139,34 +154,115 @@
     flex-direction: column;
     gap: 10px;
   }
+  
   .comment-item {
     background: #fafafa;
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 10px;
   }
+  
   .comment-header {
     display: flex;
     align-items: center;
     gap: 8px;
     margin-bottom: 5px;
   }
-  .comment-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 1px solid #ccc;
-  }
+  
   .comment-user {
     font-weight: 600;
-    color: #fff;
     background-color: #2196f3;
+    color: #fff;
     padding: 4px 8px;
     border-radius: 4px;
   }
-  .comment-content {
-    font-size: 0.95em;
-    color: #555;
+  
+  .toggle-comments-btn {
+    background: #ddd;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    align-self: center;
+  }
+  
+  .toggle-comments-btn:hover {
+    background: #ccc;
+  }
+  
+  .edit-form {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #f9f9f9;
+  }
+  
+  .edit-form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .edit-form input,
+  .edit-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #aaa;
+    border-radius: 8px;
+    font-size: 1em;
+    box-sizing: border-box;
+  }
+  
+  .edit-form textarea {
+    height: 120px;
+    resize: vertical;
+  }
+  
+  .edit-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  .save-btn {
+    background-color: green;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .cancel-btn {
+    background-color: red;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .save-btn:hover {
+    background-color: darkgreen;
+  }
+  
+  .cancel-btn:hover {
+    background-color: darkred;
+  }
+  
+  .role-admin {
+    color: green;
+  }
+  
+  .role-author {
+    color: blue;
+  }
+  
+  .role-reader {
+    color: gray;
   }
   

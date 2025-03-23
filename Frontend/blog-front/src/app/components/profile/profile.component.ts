@@ -15,10 +15,13 @@ export class ProfileComponent implements OnInit {
   user: any = {};
   isEditing = false;
   private userUrl = 'http://localhost:8080/api/users';
+  
   constructor(private http: HttpClient) {}
+  
   ngOnInit(): void {
     this.loadUser();
   }
+  
   loadUser(): void {
     const username = localStorage.getItem('username');
     this.http.get<any[]>(this.userUrl).subscribe({
@@ -26,26 +29,28 @@ export class ProfileComponent implements OnInit {
       error: err => console.error(err)
     });
   }
+  
   toggleEdit(): void {
     this.isEditing = !this.isEditing;
   }
+  
   updateProfile(): void {
-    const payload = {
-      username: this.user.username,
-      email: this.user.email,
-      country: this.user.country,
-      age: this.user.age,
-      image: this.user.image || null
-    };
-    this.http.put<any>(`${this.userUrl}/${this.user.id}`, payload).subscribe({
+    let updatedUser = { ...this.user };
+    if (!updatedUser.image || typeof updatedUser.image !== 'string' || !updatedUser.image.startsWith('data:')) {
+      delete updatedUser.image;
+    }
+    console.log('Sending to backend:', updatedUser);
+    this.http.put<any>(`${this.userUrl}/${this.user.id}`, updatedUser).subscribe({
       next: data => {
         localStorage.setItem('username', data.username);
         localStorage.setItem('role', data.role);
+        this.user = data;
         this.toggleEdit();
       },
-      error: err => console.error(err)
+      error: err => console.error('Update failed:', err)
     });
   }
+  
   onImageSelected(event: any): void {
     const file = event.target.files[0];
     if (file) {

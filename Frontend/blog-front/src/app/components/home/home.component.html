@@ -5,14 +5,25 @@
       Respect others' opinions, avoid offensive language, and keep the conversation thoughtful and constructive.
       Everyone deserves to feel safe and heard here.
     </p>
-    <h2>Flaster is an all-round platform for measurable moving advertising</h2>
-    <p>
-      Flaster is a platform that offers personalized brand experience and provides a shortcut to international exposure.
-      We are using taxi and rideshare vehicles as moving advertising surfaces in urban areas.
-      Flaster is enabling brands to mirror campaigns in multiple markets.
-      Unique technology enables detailed analysis of campaign performance.
-      A thermal representation of the exposure of the campaign allows you to see which streets and parts of the city had the most contacts.
-    </p>
+    <div class="role-info">
+      <ng-container *ngIf="userRole; else notLoggedIn">
+        <p>
+          <strong
+            [class.role-admin]="userRole === 'ADMIN'"
+            [class.role-author]="userRole === 'AUTHOR'"
+            [class.role-reader]="userRole === 'READER'"
+          >
+            Your current role is {{ userRole }}
+          </strong>
+        </p>
+        <p *ngIf="userRole==='ADMIN'"><strong>You have the highest privileges.</strong></p>
+        <p *ngIf="userRole==='AUTHOR'"><strong>You have rights to edit and delete your posts. If you need higher privileges, contact admin.</strong></p>
+        <p *ngIf="userRole==='READER'"><strong>You can comment and like posts. To become an author, contact admin.</strong></p>
+      </ng-container>
+      <ng-template #notLoggedIn>
+        <p><strong>You are not logged in, please login to get rights for comment and like...</strong></p>
+      </ng-template>
+    </div>
   </div>
   
   <div class="add-post-button" *ngIf="isLoggedIn && isAuthorOrAdmin">
@@ -30,7 +41,10 @@
         <div class="post-author">
           Author: {{ post.author?.username }}
         </div>
-        <div class="post-controls" *ngIf="isLoggedIn && (userRole === 'ADMIN' || (userRole === 'AUTHOR' && post.author?.username === userName))">
+        <div
+          class="post-controls"
+          *ngIf="isLoggedIn && (userRole === 'ADMIN' || (userRole === 'AUTHOR' && post.author?.username === userName))"
+        >
           <button class="edit-btn" (click)="enableEdit(post)" title="Edit Post">
             <i class="fa fa-edit"></i>
           </button>
@@ -40,14 +54,22 @@
         </div>
       </div>
       <div *ngIf="post.isEditing" class="edit-form">
+        <label>Title</label>
         <input type="text" [(ngModel)]="post.editedTitle" required />
+        <label>Content</label>
         <textarea [(ngModel)]="post.editedContent" required></textarea>
-        <button (click)="saveEdit(post)" class="save-btn">Save</button>
-        <button (click)="cancelEdit(post)" class="cancel-btn">Cancel</button>
+        <div class="edit-buttons">
+          <button (click)="saveEdit(post)" class="save-btn">Save</button>
+          <button (click)="cancelEdit(post)" class="cancel-btn">Cancel</button>
+        </div>
       </div>
       <div class="post-actions">
         <div class="action-buttons" *ngIf="isLoggedIn">
-          <button class="action-btn" (click)="toggleLike(post)" [title]="post.userLiked ? 'You liked this post' : 'Like this post'">
+          <button
+            class="action-btn"
+            (click)="toggleLike(post)"
+            [title]="post.userLiked ? 'You liked this post' : 'Like this post'"
+          >
             <i class="fa fa-thumbs-up"></i> Like
           </button>
           <button class="action-btn" (click)="toggleComment(post)">Comment</button>
@@ -62,18 +84,36 @@
       </div>
       <div class="comments-section" *ngIf="post.comments && post.comments.length">
         <h4>Comments</h4>
-        <div class="comment-item" *ngFor="let comment of post.comments">
-          <div class="comment-header">
-            <ng-container *ngIf="comment.user?.image; else defaultAvatar">
-              <img [src]="comment.user.image" alt="avatar" class="comment-avatar" />
-            </ng-container>
-            <ng-template #defaultAvatar>
-              <i class="fa fa-user-circle comment-avatar"></i>
-            </ng-template>
-            <span class="comment-user">{{ comment.user?.username }}</span>
+        <ng-container *ngIf="!post.showAllComments; else allComments">
+          <div class="comment-item" *ngFor="let comment of post.comments | slice:0:3">
+            <div class="comment-header">
+              <span class="comment-user">{{ $any(comment).user?.username }}</span>
+            </div>
+            <p class="comment-content">{{ $any(comment).content }}</p>
           </div>
-          <p class="comment-content">{{ comment.content }}</p>
-        </div>
+          <button
+            class="toggle-comments-btn"
+            *ngIf="post.comments.length > 3"
+            (click)="post.showAllComments = true"
+          >
+            Show More <i class="fa fa-arrow-down"></i>
+          </button>
+        </ng-container>
+        <ng-template #allComments>
+          <div class="comment-item" *ngFor="let comment of post.comments">
+            <div class="comment-header">
+              <span class="comment-user">{{ $any(comment).user?.username }}</span>
+            </div>
+            <p class="comment-content">{{ $any(comment).content }}</p>
+          </div>
+          <button
+            class="toggle-comments-btn"
+            *ngIf="post.comments.length > 3"
+            (click)="post.showAllComments = false"
+          >
+            Show Less <i class="fa fa-arrow-up"></i>
+          </button>
+        </ng-template>
       </div>
     </div>
   </div>

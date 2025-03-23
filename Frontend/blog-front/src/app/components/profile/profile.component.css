@@ -2,55 +2,97 @@
     max-width: 500px;
     margin: 20px auto;
     padding: 10px;
+    text-align: center;
   }
+  
   .profile-card {
     background: #fff;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: 10px;
     padding: 20px;
-    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-align: left;
+    margin: 0 auto;
   }
-  .avatar-section {
-    margin-bottom: 15px;
+  
+  .profile-card.edit-mode {
+    max-width: 400px;
+    margin: 20px auto;
   }
-  .profile-avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
+  
   .profile-info p {
-    margin: 8px 0;
+    margin: 10px 0;
     font-size: 1em;
   }
+  
+  .edit-profile-btn {
+    display: block;
+    margin: 10px auto 0;
+    background-color: #2196f3;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .edit-profile-btn:hover {
+    background-color: #1976d2;
+  }
+  
   .form-group {
     margin-bottom: 15px;
     text-align: left;
   }
+  
   .form-group label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
   }
+  
   .form-group input {
     width: 100%;
     padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
     box-sizing: border-box;
   }
+  
   .btn-group {
     display: flex;
     justify-content: center;
     gap: 10px;
+    margin-top: 15px;
   }
-  button {
-    background-color: #2196f3;
+  
+  .save-btn {
+    background-color: green;
     color: #fff;
     border: none;
-    padding: 10px 15px;
+    padding: 10px 20px;
     border-radius: 4px;
     cursor: pointer;
   }
-  button:hover {
-    background-color: #1976d2;
+  
+  .cancel-btn {
+    background-color: red;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .save-btn:hover {
+    background-color: darkgreen;
+  }
+  
+  .cancel-btn:hover {
+    background-color: darkred;
+  }
+  
+  .centered-profile {
+    text-align: center;
   }
   

@@ -2,8 +2,7 @@
     <div class="navbar-left">
       <a routerLink="/">Home</a>
       <a routerLink="/profile">Profile</a>
-      <a routerLink="/add-post" *ngIf="isLoggedIn && isAuthorOrAdmin">+ Add Post</a>
-      <a routerLink="/roles" *ngIf="isLoggedIn && isAdmin">Roles</a>
+      <a routerLink="/roles" *ngIf="isAdmin">Roles</a>
     </div>
     <div class="navbar-right">
       <span *ngIf="isLoggedIn" class="welcome-message">Welcome, {{ username }}!</span>

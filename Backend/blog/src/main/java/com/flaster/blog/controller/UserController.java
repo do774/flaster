@@ -37,7 +37,7 @@ public class UserController {
         }
         existing.setEmail(updated.getEmail());
         existing.setCountry(updated.getCountry());
-        existing.setImage(updated.getImage());
+        existing.setAge(updated.getAge());
         return userRepository.save(existing);
     }
 }
