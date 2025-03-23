@@ -1,0 +1,35 @@
+version: '3'
+services:
+  db:
+    image: postgres:14
+    environment:
+      - POSTGRES_USER=bloguser
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=blogdb
+    ports:
+      - "5433:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./Backend/blog
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/blogdb
+      - SPRING_DATASOURCE_USERNAME=bloguser
+      - SPRING_DATASOURCE_PASSWORD=1234
+    ports:
+      - "8081:8080"
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./Frontend/blog-front
+    ports:
+      - "4201:85"
+    depends_on:
+      - backend
+
+volumes:
+  db-data:
