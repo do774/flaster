@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 export class HeaderComponent {
   constructor(private router: Router) {}
   get isLoggedIn(): boolean {
-    return !!localStorage.getItem('basicAuth');
+    return !!localStorage.getItem('jwt');
   }
   get username(): string {
     return localStorage.getItem('username') || '';
@@ -27,7 +27,7 @@ export class HeaderComponent {
     return this.role === 'AUTHOR' || this.role === 'ADMIN';
   }
   logout(): void {
-    localStorage.removeItem('basicAuth');
+    localStorage.removeItem('jwt');
     localStorage.removeItem('username');
     localStorage.removeItem('role');
     this.router.navigate(['/login']);

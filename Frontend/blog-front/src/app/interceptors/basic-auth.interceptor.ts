@@ -1,16 +1,16 @@
 import { HttpRequest, HttpHandlerFn, HttpInterceptorFn } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-export const basicAuthInterceptor: HttpInterceptorFn = (
+export const jwtInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
   next: HttpHandlerFn
 ): Observable<any> => {
-  const token = localStorage.getItem('basicAuth');
+  const token = localStorage.getItem('jwt');
   if (token) {
-    const cloned = req.clone({
-      setHeaders: { Authorization: 'Basic ' + token }
+    const clonedRequest = req.clone({
+      setHeaders: { Authorization: `Bearer ${token}` }
     });
-    return next(cloned);
+    return next(clonedRequest);
   }
   return next(req);
 };

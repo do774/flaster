@@ -1,40 +1,37 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+import { jwtDecode }from 'jwt-decode';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  username = '';
-  password = '';
-  errorMessage = '';
-  private apiUrl = 'http://localhost:8080/api/users';
-  constructor(private router: Router, private http: HttpClient) {}
+  username: string = '';
+  password: string = '';
+  errorMessage: string = '';
+  
+  constructor(private authService: AuthService, private router: Router) { }
+  
   login() {
-    const basicAuth = btoa(`${this.username}:${this.password}`);
-    const headers = new HttpHeaders({
-      Authorization: 'Basic ' + basicAuth
-    });
-    this.http.get<any>(`${this.apiUrl}/${this.username}`, { headers }).subscribe({
-      next: response => {
-        console.log('Login response:', response);
-        localStorage.setItem('basicAuth', basicAuth);
+    this.authService.login({ username: this.username, password: this.password })
+    .subscribe({
+      next: (response: any) => {
+        const token = response.token;
+        localStorage.setItem('jwt', token);
+        const decoded: any = jwtDecode(token);
+        localStorage.setItem('role', decoded.role);
         localStorage.setItem('username', this.username);
-        localStorage.setItem('role', response.role);
-        console.log('Role stored:', localStorage.getItem('role'));
         this.router.navigate(['/']);
       },
       error: err => {
-        this.errorMessage = 'Invalid username or password!';
-        console.error('Login failed', err);
+        this.errorMessage = 'Neispravni korisnički podaci';
       }
     });
   }
