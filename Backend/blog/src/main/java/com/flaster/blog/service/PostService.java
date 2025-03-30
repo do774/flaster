@@ -13,50 +13,50 @@ import java.util.List;
 @Service
 public class PostService {
 
-    @Autowired
-    private PostRepository postRepository;
-    
-    @Autowired
-    private UserService userService;
-    
-    @Autowired
-    private LikeRepository likeRepository;
-    
-    @Autowired
-    private CommentRepository commentRepository;
+	@Autowired
+	private PostRepository postRepository;
 
-    public List<Post> getAllPosts() {
-        return postRepository.findAll();
-    }
+	@Autowired
+	private UserService userService;
 
-    public Post createPost(Post post) {
-        post.setCreatedAt(LocalDateTime.now());
-        post.setUpdatedAt(LocalDateTime.now());
-        return postRepository.save(post);
-    }
+	@Autowired
+	private LikeRepository likeRepository;
 
-    public Post updatePost(Long id, Post updatedPost, User user) {
-        Post existing = postRepository.findById(id).orElseThrow();
-        if (!existing.getAuthor().getUsername().equals(user.getUsername()) && !user.getRole().equals("ADMIN")) {
-            throw new RuntimeException("Not authorized");
-        }
-        existing.setTitle(updatedPost.getTitle());
-        existing.setContent(updatedPost.getContent());
-        existing.setUpdatedAt(LocalDateTime.now());
-        return postRepository.save(existing);
-    }
+	@Autowired
+	private CommentRepository commentRepository;
 
-    public void deletePost(Long id, User user) {
-        Post existing = postRepository.findById(id).orElseThrow();
-        if (!existing.getAuthor().getUsername().equals(user.getUsername()) && !user.getRole().equals("ADMIN")) {
-            throw new RuntimeException("Not authorized");
-        }
-        likeRepository.deleteAll(likeRepository.findByPost(existing));
-        commentRepository.deleteAll(commentRepository.findByPost(existing));
-        postRepository.delete(existing);
-    }
-    
-    public User findUserByUsername(String username) {
-        return userService.findByUsername(username);
-    }
+	public List<Post> getAllPosts() {
+		return postRepository.findAll();
+	}
+
+	public Post createPost(Post post) {
+		post.setCreatedAt(LocalDateTime.now());
+		post.setUpdatedAt(LocalDateTime.now());
+		return postRepository.save(post);
+	}
+
+	public Post updatePost(Long id, Post updatedPost, User user) {
+		Post existing = postRepository.findById(id).orElseThrow();
+		if (!existing.getAuthor().getUsername().equals(user.getUsername()) && !user.getRole().equals("ADMIN")) {
+			throw new RuntimeException("Not authorized");
+		}
+		existing.setTitle(updatedPost.getTitle());
+		existing.setContent(updatedPost.getContent());
+		existing.setUpdatedAt(LocalDateTime.now());
+		return postRepository.save(existing);
+	}
+
+	public void deletePost(Long id, User user) {
+		Post existing = postRepository.findById(id).orElseThrow();
+		if (!existing.getAuthor().getUsername().equals(user.getUsername()) && !user.getRole().equals("ADMIN")) {
+			throw new RuntimeException("Not authorized");
+		}
+		likeRepository.deleteAll(likeRepository.findByPost(existing));
+		commentRepository.deleteAll(commentRepository.findByPost(existing));
+		postRepository.delete(existing);
+	}
+
+	public User findUserByUsername(String username) {
+		return userService.findByUsername(username);
+	}
 }
