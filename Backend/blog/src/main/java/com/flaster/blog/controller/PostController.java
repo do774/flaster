@@ -1,5 +1,7 @@
 package com.flaster.blog.controller;
 
+import com.flaster.blog.dto.PostDTO;
+import com.flaster.blog.mapper.PostMapper;
 import com.flaster.blog.model.Post;
 import com.flaster.blog.model.User;
 import com.flaster.blog.service.PostService;
@@ -8,29 +10,40 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/posts")
 public class PostController {
     @Autowired
     private PostService postService;
+    @Autowired
+    private PostMapper postMapper;
+    
     @GetMapping
-    public List<Post> getAllPosts() {
-        return postService.getAllPosts();
+    public List<PostDTO> getAllPosts() {
+        return postService.getAllPosts().stream().map(postMapper::toDto).collect(Collectors.toList());
     }
+    
     @PostMapping
     @PreAuthorize("hasAnyAuthority('AUTHOR','ADMIN')")
-    public Post createPost(@RequestBody Post post, Authentication auth) {
+    public PostDTO createPost(@RequestBody PostDTO postDTO, Authentication auth) {
         User user = postService.findUserByUsername(auth.getName());
+        Post post = postMapper.toEntity(postDTO);
         post.setAuthor(user);
-        return postService.createPost(post);
+        Post created = postService.createPost(post);
+        return postMapper.toDto(created);
     }
+    
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('AUTHOR','ADMIN')")
-    public Post updatePost(@PathVariable Long id, @RequestBody Post updatedPost, Authentication auth) {
+    public PostDTO updatePost(@PathVariable Long id, @RequestBody PostDTO updatedDTO, Authentication auth) {
         User user = postService.findUserByUsername(auth.getName());
-        return postService.updatePost(id, updatedPost, user);
+        Post updated = postMapper.toEntity(updatedDTO);
+        Post result = postService.updatePost(id, updated, user);
+        return postMapper.toDto(result);
     }
+    
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('AUTHOR','ADMIN')")
     public void deletePost(@PathVariable Long id, Authentication auth) {
