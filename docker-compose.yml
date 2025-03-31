@@ -19,7 +19,7 @@ services:
       - SPRING_DATASOURCE_USERNAME=bloguser
       - SPRING_DATASOURCE_PASSWORD=1234
     ports:
-      - "8081:8080"
+      - "8080:8080"
     depends_on:
       - db
 
@@ -27,7 +27,7 @@ services:
     build:
       context: ./Frontend/blog-front
     ports:
-      - "4201:85"
+      - "4200:80"
     depends_on:
       - backend
 
